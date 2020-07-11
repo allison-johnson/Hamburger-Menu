@@ -1,1 +1,139 @@
+* {
+    margin: 0;
+    padding: 0;
+}
 
+body {
+    font-family: 'Dosis', sans-serif;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(148, 48, 48, 0.2), rgba(167, 67, 67, 0.4)), url(images/bg.jpg) center no-repeat;
+    background-size: cover;
+}
+
+.navbar {
+    width: 300px;
+    height: 100%;
+    background-color: #262626;
+    /* To move navbar to the right side instead of the left */
+    position: fixed;
+    top: 0;
+    /* Hides navbar by default */
+    right: -300px;
+    /* To be able to center menu items horizontally within navbar */
+    display: flex;
+    justify-content: center;
+    /* for vertical centering */
+    align-items: center;
+    /* top-left and bottom-left corners only */
+    border-radius: 20% 0 0 60%;
+    transition: right .8s cubic-bezier(1, 0, 0, 1);
+}
+
+.change {
+    right: 0;
+}
+
+.hamburger-menu {
+    width: 35px;
+    height: 30px;
+    position: fixed;
+    top: 50px;
+    right: 50px;
+    cursor: pointer;
+    /* To be able to create 3 spaced out lines for hamburger, makes this a flex-box */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.line {
+    width: 100%;
+    height: 3px;
+    background-color: chocolate;
+    /* Make transition between hamburger icon and X icon smoother */
+    transition: all 0.5s;
+}
+
+/* To transform hamburger menu into X, transform lines 1 and 3;
+   line 2 should be hidden */
+.change .line-1 {
+    transform: rotateZ(-45deg) translate(-8px, 6px);
+}
+
+.change .line-2 {
+    opacity: 0;
+}
+
+.change .line-3 {
+    transform: rotateZ(45deg) translate(-8px, -6px);
+}
+
+.nav-list {
+    text-align: right;
+}
+
+.nav-item {
+    list-style: none;
+    margin: 25px;
+}
+
+.nav-link {
+    text-decoration: none;
+    font-size: 22px;
+    color: #eee;
+    /* make text lighter */
+    font-weight: 300;
+    /* add space between letters */
+    letter-spacing: 1px;
+    /* make all text uppercase */
+    text-transform: uppercase;
+    position: relative;
+    padding: 3px 0;
+}
+
+/* These are called psuedo-elements
+   ::before and ::after pseudo-elements are used to insert content before/after
+   the content of an element */
+.nav-link::before,
+.nav-link::after {
+    content: "";
+    width: 100%;
+    height: 2px;
+    background-color: chocolate;
+    /* I don't quite understand what absolute positioning does here 
+       I know that the parent element .nav-link has relative positioning,
+       which is also important. And, if I get rid of the absolute 
+       positioning, the lines don't show up. But why? */
+    position: absolute;
+    /* This doesn't actually seem to have an effect on the where the line starts */
+    left: 0px;
+    /* Hide lines until user hovers over item */
+    transform: scaleX(0);
+    transition: transform 0.5s;
+}
+
+.nav-link::after {
+    /* Without this, ::before and ::after lines are right on top of each other!
+       bottom is NOT 0 by default */
+    bottom: 0px;
+    /* Transform origin property is set as center by default;
+    We want lines to appear from the side, not the center */
+    transform-origin: right;
+}
+
+.nav-link::before {
+    /* This is 0 by default anyway! */
+    top: 0px;
+    /* Transform origin property is set as center by default;
+    We want lines to appear from the side, not the center */
+    transform-origin: left;
+}
+
+.nav-link:hover::before,
+.nav-link:hover::after {
+    transform: scaleX(1);
+}
